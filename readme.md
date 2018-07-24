@@ -1,5 +1,7 @@
 # php-value-mask
 
+[![Packagist](https://img.shields.io/packagist/dt/messere/php-value-mask.svg)](https://packagist.org/packages/messere/php-value-mask)
+
 ## Purpose
 
 Google in their [Performance Tips](https://developers.google.com/discovery/v1/performance#partial) for
