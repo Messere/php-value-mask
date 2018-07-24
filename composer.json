@@ -11,6 +11,7 @@
     "array filtering",
     "json filtering"
   ],
+  "homepage": "https://github.com/Messere/php-value-mask",
   "readme": "readme.md",
   "minimum-stability": "stable",
   "license": "MIT",
