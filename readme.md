@@ -139,7 +139,7 @@ $mask = 'title,img,alt';
 try {
     $filteredInput = $parser->parse($mask)->filter($input);
     echo sprintf(
-        "%s\n\n![%s](%s \"%s\")",
+        "![%s](%s \"%s\")",
         $filteredInput['title'],
         $filteredInput['title'],
         $filteredInput['img'],
@@ -152,13 +152,7 @@ try {
 
 Returns Markdown that renders the following:
 
-```text
-Code Talkers
-
 ![Code Talkers](https://imgs.xkcd.com/comics/code_talkers.png "As far as I can tell, Navajo doesn't have a common word for 'zero'.  do-neh-lini means 'neutral'.")
-```
-
-
 
 ## Syntax
 
@@ -208,4 +202,4 @@ Library is inspired by:
 
 ## License
 
-MIT
+[MIT](License)
