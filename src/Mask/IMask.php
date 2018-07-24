@@ -9,7 +9,7 @@ interface IMask
      * @param array|\stdClass $value
      * @return array
      */
-    public function apply($value): array;
+    public function filter($value): array;
 
     /**
      * for nesting masks in masks, in tree-like structure

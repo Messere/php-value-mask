@@ -21,7 +21,7 @@ class ParserTest extends TestCase
         try {
             $this->assertEquals(
                 $expected,
-                $this->parser->parse($filter)->apply($input)
+                $this->parser->parse($filter)->filter($input)
             );
         } catch (ParserException $e) {
             $this->fail('Parsing exception: ' . $e->getMessage());

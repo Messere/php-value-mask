@@ -36,7 +36,7 @@ class MaskArray extends Mask {
     {
         $results = [];
         foreach ($this->children as $subMaskElement) {
-            $results[] = $subMaskElement->apply($value);
+            $results[] = $subMaskElement->filter($value);
         }
         return array_merge([], ...$results);
     }

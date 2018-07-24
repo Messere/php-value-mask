@@ -25,7 +25,7 @@ abstract class Mask implements IMask
      * @param $value
      * @return array
      */
-    public function apply($value): array
+    public function filter($value): array
     {
         // normalize associative arrays to stdClasses so we don't have to deal
         // with detecting if array value is in fact "list" or "object"
@@ -91,7 +91,7 @@ abstract class Mask implements IMask
             $numberOfMatches++;
 
             if ($this->hasChildren()) {
-                $this->maybeAppend($key, $result, $this->children[0]->apply($val));
+                $this->maybeAppend($key, $result, $this->children[0]->filter($val));
                 continue;
             }
 
