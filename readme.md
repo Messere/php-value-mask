@@ -139,8 +139,7 @@ $mask = 'title,img,alt';
 try {
     $filteredInput = $parser->parse($mask)->filter($input);
     echo sprintf(
-        "![%s](%s \"%s\")",
-        $filteredInput['title'],
+        '![%s](%s "%s")',
         $filteredInput['title'],
         $filteredInput['img'],
         $filteredInput['alt']
