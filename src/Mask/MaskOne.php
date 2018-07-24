@@ -2,7 +2,8 @@
 
 namespace messere\phpValueMask\Mask;
 
-class MaskOne extends Mask {
+class MaskOne extends Mask
+{
 
     private $key;
 

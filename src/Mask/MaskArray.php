@@ -6,7 +6,8 @@ namespace messere\phpValueMask\Mask;
  * Mask that will apply all children masks to value, then
  * gather and merge results to produce filtered value
  */
-class MaskArray extends Mask {
+class MaskArray extends Mask
+{
     public function match(string $key): bool
     {
         // does not really matter, we always match

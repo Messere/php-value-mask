@@ -66,14 +66,4 @@ class Input
         $this->rewind($mark);
         return null;
     }
-
-    public function consumed(): string
-    {
-        return \substr($this->value, 0, $this->currentPosition);
-    }
-
-    public function left(): string
-    {
-        return \substr($this->value, $this->currentPosition);
-    }
 }

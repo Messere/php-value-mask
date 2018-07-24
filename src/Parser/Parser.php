@@ -122,6 +122,7 @@ class Parser
         $moreNestedKeys = $this->input->maybeConsume(function () {
             return $this->parseNestedKeys();
         });
+
         if (null === $moreNestedKeys) {
             return null;
         }

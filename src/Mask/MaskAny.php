@@ -5,7 +5,8 @@ namespace messere\phpValueMask\Mask;
 /**
  * Mask that will match any element, equivalent of wildcard (*) in filter definition
  */
-class MaskAny extends Mask {
+class MaskAny extends Mask
+{
 
     public function __construct()
     {
