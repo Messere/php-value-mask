@@ -1,0 +1,39 @@
+{
+  "name": "messere/php-value-mask",
+  "description": "extract subset of array / object values",
+  "version": "0.1.0",
+  "type": "library",
+  "keywords": [
+    "filter",
+    "filtering",
+    "mask",
+    "partial response",
+    "array filtering",
+    "json filtering"
+  ],
+  "readme": "readme.md",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dariusz Sieradzki",
+      "email": "opensource@aerolit.pl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "messere\\phpValueMask\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "messere\\phpValueMask\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2"
+  }
+}
