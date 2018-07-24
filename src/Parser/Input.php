@@ -34,7 +34,7 @@ class Input
         return $this->currentPosition === \strlen($this->value);
     }
 
-    public function maybeConsume(string $name, callable $callback)
+    public function maybeConsume(callable $callback)
     {
         $mark = $this->mark();
         $result = $callback();

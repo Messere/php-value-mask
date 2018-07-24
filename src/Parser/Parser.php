@@ -39,7 +39,7 @@ class Parser
     {
         $root = $root ?? new MaskArray();
 
-        $maskElement = $this->input->maybeConsume('parseMaskElement', function () {
+        $maskElement = $this->input->maybeConsume(function () {
             return $this->parseMaskElement();
         });
 
@@ -59,7 +59,7 @@ class Parser
         $elements = [ 'ArrayOfMasks', 'NestedKeys' ];
 
         foreach ($elements as $element) {
-            $node = $this->input->maybeConsume("parse$element", function () use ($element) {
+            $node = $this->input->maybeConsume(function () use ($element) {
                 return $this->{"parse$element"}();
             });
             if (null !== $node) {
@@ -76,7 +76,7 @@ class Parser
         /**
          * @var $keyNode IMask
          */
-        $keyNode = $this->input->maybeConsume('parseKey', function (): ?IMask {
+        $keyNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseKey();
         });
         if (null === $keyNode) {
@@ -87,7 +87,7 @@ class Parser
             return null;
         }
 
-        $maskNode = $this->input->maybeConsume('parseMask', function (): ?IMask {
+        $maskNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseMask();
         });
         if (null === $maskNode) {
@@ -108,7 +108,7 @@ class Parser
         /**
          * @var $keyNode IMask
          */
-        $keyNode = $this->input->maybeConsume('parseKey', function (): ?IMask {
+        $keyNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseKey();
         });
         if (null === $keyNode) {
@@ -119,7 +119,7 @@ class Parser
             return $keyNode;
         }
 
-        $moreNestedKeys = $this->input->maybeConsume('parseNestedKeys', function () {
+        $moreNestedKeys = $this->input->maybeConsume(function () {
             return $this->parseNestedKeys();
         });
         if (null === $moreNestedKeys) {
@@ -133,7 +133,7 @@ class Parser
     private function parseKey(): ?Mask
     {
 
-        $wildcard = $this->input->maybeConsume('parseWildcard', function () {
+        $wildcard = $this->input->maybeConsume(function () {
             return $this->parseWildcard();
         });
 
@@ -141,7 +141,7 @@ class Parser
             return new MaskAny();
         }
 
-        $identifier = $this->input->maybeConsume('parseIdentifier', function () {
+        $identifier = $this->input->maybeConsume(function () {
             return $this->parseIdentifier();
         });
         if (null !== $identifier) {
@@ -153,7 +153,7 @@ class Parser
 
     private function parseIdentifier(): ?string
     {
-        $identifier = $this->input->maybeConsume('parseIdentifierInternal', function () {
+        $identifier = $this->input->maybeConsume(function () {
             $identifier = '';
             $firstChar = $this->input->maybeConsumeTerminalByRegexp('/[a-z_]/i');
             if (null === $firstChar) {
