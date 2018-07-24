@@ -8,14 +8,14 @@ abstract class Mask implements IMask
      * @var Mask[]
      */
     protected $children = [];
-    private $stopAfterNumberOfMatches;
+    private $maxMatchesNumber;
     private $childrenLimit;
 
     public function __construct(
-        int $stopAfterNumberOfMatches = null,
+        int $maxMatchesNumber = null,
         int $childrenLimit = null
     ) {
-        $this->stopAfterNumberOfMatches = $stopAfterNumberOfMatches;
+        $this->maxMatchesNumber = $maxMatchesNumber;
         $this->childrenLimit = $childrenLimit;
     }
 
@@ -35,11 +35,10 @@ abstract class Mask implements IMask
 
     public function addChild(IMask $child): void
     {
-        if (null === $this->childrenLimit || \count($this->children) < $this->childrenLimit) {
-            $this->children[] = $child;
-        } else {
+        if (null !== $this->childrenLimit && \count($this->children) >= $this->childrenLimit) {
             throw new MaskConfigurationException('Mask children limit exceeded');
         }
+        $this->children[] = $child;
     }
 
     /**
@@ -60,18 +59,26 @@ abstract class Mask implements IMask
 
     /**
      * append values to result if not empty
-     * @param null|string $key
      * @param array $result
      * @param array $values
      */
-    private function maybeAppend(?string $key, array &$result, array $values): void
+    private function maybeAppend(array &$result, array $values): void
     {
         if ([] !== $values) {
-            if (null === $key) {
-                $result[] = $values;
-            } else {
-                $result[$key] = $values;
-            }
+            $result[] = $values;
+        }
+    }
+
+    /**
+     * append values to result if not empty
+     * @param string $key
+     * @param array $result
+     * @param array $values
+     */
+    private function maybeAppendWithKey(string $key, array &$result, array $values): void
+    {
+        if ([] !== $values) {
+            $result[$key] = $values;
         }
     }
 
@@ -91,7 +98,7 @@ abstract class Mask implements IMask
             $numberOfMatches++;
 
             if ($this->hasChildren()) {
-                $this->maybeAppend($key, $result, $this->children[0]->filter($val));
+                $this->maybeAppendWithKey($key, $result, $this->children[0]->filter($val));
                 continue;
             }
 
@@ -111,7 +118,7 @@ abstract class Mask implements IMask
         if (\is_array($valueNormalized)) {
             $subResult = [];
             foreach ($valueNormalized as $item) {
-                $this->maybeAppend(null, $subResult, $this->applyToNormalized($item));
+                $this->maybeAppend($subResult, $this->applyToNormalized($item));
             }
             $result = array_merge($result, $subResult);
         }
@@ -121,6 +128,6 @@ abstract class Mask implements IMask
 
     private function matchedEnough(int $numberOfMatches): bool
     {
-        return $this->stopAfterNumberOfMatches !== null && $numberOfMatches >= $this->stopAfterNumberOfMatches;
+        return $this->maxMatchesNumber !== null && $numberOfMatches >= $this->maxMatchesNumber;
     }
 }

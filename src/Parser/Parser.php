@@ -56,18 +56,16 @@ class Parser
 
     private function parseMaskElement(): ?IMask
     {
-        $elements = [ 'ArrayOfMasks', 'NestedKeys' ];
-
-        foreach ($elements as $element) {
-            $node = $this->input->maybeConsume(function () use ($element) {
-                return $this->{"parse$element"}();
-            });
-            if (null !== $node) {
-                return $node;
-            }
+        $node = $this->input->maybeConsume(function () {
+            return $this->parseArrayOfMasks();
+        });
+        if (null !== $node) {
+            return $node;
         }
 
-        return null;
+        return $this->input->maybeConsume(function () {
+            return $this->parseNestedKeys();
+        });
     }
 
     /** @noinspection PhpUnusedPrivateMethodInspection */
@@ -79,26 +77,18 @@ class Parser
         $keyNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseKey();
         });
-        if (null === $keyNode) {
-            return null;
-        }
-
-        if (null === $this->input->maybeConsumeTerminal('(')) {
+        if (null === $keyNode || null === $this->input->maybeConsumeTerminal('(')) {
             return null;
         }
 
         $maskNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseMask();
         });
-        if (null === $maskNode) {
+        if (null === $maskNode || null === $this->input->maybeConsumeTerminal(')')) {
             return null;
         }
 
         $keyNode->addChild($maskNode);
-
-        if (null === $this->input->maybeConsumeTerminal(')')) {
-            return null;
-        }
 
         return $keyNode;
     }
@@ -111,11 +101,8 @@ class Parser
         $keyNode = $this->input->maybeConsume(function (): ?IMask {
             return $this->parseKey();
         });
-        if (null === $keyNode) {
-            return null;
-        }
 
-        if (null === $this->input->maybeConsumeTerminal('/')) {
+        if (null === $keyNode || null === $this->input->maybeConsumeTerminal('/')) {
             return $keyNode;
         }
 
@@ -156,19 +143,18 @@ class Parser
     {
         $identifier = $this->input->maybeConsume(function () {
             $identifier = '';
-            $firstChar = $this->input->maybeConsumeTerminalByRegexp('/[a-z_]/i');
+            $firstChar = $this->input->maybeConsumeLetter();
             if (null === $firstChar) {
                 return null;
             }
             $identifier .= $firstChar;
 
             do {
-                $char = $this->input->maybeConsumeTerminalByRegexp('/[a-z0-9_]/i');
-                if ($char !== null) {
-                    $identifier .= $char;
-                } else {
+                $char = $this->input->maybeConsumeLetterOrDigit();
+                if ($char === null) {
                     break;
                 }
+                $identifier .= $char;
             } while (true);
             return $identifier;
         });

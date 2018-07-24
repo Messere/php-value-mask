@@ -56,11 +56,31 @@ class Input
         return $char;
     }
 
-    public function maybeConsumeTerminalByRegexp(string $terminalMatch): ?string
+    private function isLetter(?string $char): bool
+    {
+        if ($char === '_') {
+            return true;
+        }
+        $charOrd = \ord(strtolower($char));
+        return $charOrd >= 97 && $charOrd <= 122;
+    }
+
+    public function maybeConsumeLetter(): ?string
     {
         $mark = $this->mark();
         $char = $this->getChar();
-        if (1 === preg_match($terminalMatch, $char)) {
+        if ($this->isLetter($char)) {
+            return $char;
+        }
+        $this->rewind($mark);
+        return null;
+    }
+
+    public function maybeConsumeLetterOrDigit(): ?string
+    {
+        $mark = $this->mark();
+        $char = $this->getChar();
+        if (\is_numeric($char) || $this->isLetter($char)) {
             return $char;
         }
         $this->rewind($mark);
