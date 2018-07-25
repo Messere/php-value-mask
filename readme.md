@@ -203,4 +203,4 @@ Library is inspired by:
 
 ## License
 
-[MIT](License)
+[MIT](LICENSE)
