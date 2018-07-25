@@ -13,6 +13,8 @@ or use wildcard to include all fields (see *Syntax* and *Grammar* sections below
 
 This library implements parsing of `fields` parameter and filtering of arrays / objects.  
 
+See also: PSR-15 compatible middleware based on this library: [Partial Response PSR-15 Middleware](https://github.com/Messere/partial-response-middleware)
+
 ## Usage example
 
 ```php
