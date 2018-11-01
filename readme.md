@@ -123,40 +123,6 @@ Note that library does preserve the structure/nesting of values, but not
 necessarily types of values - all objects are converted to associative arrays
 with object's public properties as keys.
 
-Another example:
-
-```php
-<?php
-require_once 'vendor/autoload.php';
-
-use messere\phpValueMask\Parser\Parser;
-use messere\phpValueMask\Parser\ParserException;
-
-$parser = new Parser();
-
-$input = json_decode(
-    file_get_contents('http://xkcd.com/257/info.0.json')
-);
-
-$mask = 'title,img,alt';
-
-try {
-    $filteredInput = $parser->parse($mask)->filter($input);
-    echo sprintf(
-        '![%s](%s "%s")',
-        $filteredInput['title'],
-        $filteredInput['img'],
-        $filteredInput['alt']
-    );
-} catch (ParserException $e) {
-    echo 'Parser error: ' . $e->getMessage();
-}
-```
-
-Returns Markdown that renders the following:
-
-![Code Talkers](https://imgs.xkcd.com/comics/code_talkers.png "As far as I can tell, Navajo doesn't have a common word for 'zero'.  do-neh-lini means 'neutral'.")
-
 ## Syntax
 
 - `a` selects key `a` from input
