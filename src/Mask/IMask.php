@@ -6,7 +6,7 @@ interface IMask
 {
     /**
      * apply filtering magic to $value and return filtered array
-     * @param array|\stdClass $value
+     * @param array|object $value
      * @return array
      */
     public function filter($value): array;

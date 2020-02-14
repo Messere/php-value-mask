@@ -68,7 +68,6 @@ class Parser
         });
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function parseArrayOfMasks(): ?IMask
     {
         /**

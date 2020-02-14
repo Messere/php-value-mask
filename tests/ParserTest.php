@@ -16,18 +16,6 @@ class ParserTest extends TestCase
         $this->parser = new Parser();
     }
 
-    private function assertFilteringResult(array $expected, $input, string $filter): void
-    {
-        try {
-            $this->assertEquals(
-                $expected,
-                $this->parser->parse($filter)->filter($input)
-            );
-        } catch (ParserException $e) {
-            $this->fail('Parsing exception: ' . $e->getMessage());
-        }
-    }
-
     public function testSingleKey(): void
     {
         $mask = 'a1';
@@ -187,7 +175,6 @@ class ParserTest extends TestCase
         $this->assertFilteringResult($expected, $input, $mask);
     }
 
-
     public function testDeepNested(): void
     {
         $input = [
@@ -215,6 +202,7 @@ class ParserTest extends TestCase
 
         $this->assertFilteringResult($expected, $input, $mask);
     }
+
 
     public function testArrayOfMasks(): void
     {
@@ -396,9 +384,7 @@ class ParserTest extends TestCase
 
         $mask = 'a1,b2';
 
-        $expected = 
-            $input
-        ;
+        $expected = $input;
 
         $this->assertFilteringResult($expected, $input, $mask);
     }
@@ -434,7 +420,7 @@ class ParserTest extends TestCase
         $this->assertFilteringResult($expected, $input, $mask);
     }
 
-    public function OverlappingArrayAndNestedOnArray(): void
+    public function testOverlappingArrayAndNestedOnArray(): void
     {
         $input = [
             [
@@ -474,5 +460,17 @@ class ParserTest extends TestCase
         ];
 
         $this->assertFilteringResult($expected, $input, $mask);
+    }
+
+    private function assertFilteringResult(array $expected, $input, string $filter): void
+    {
+        try {
+            $this->assertEquals(
+                $expected,
+                $this->parser->parse($filter)->filter($input)
+            );
+        } catch (ParserException $e) {
+            $this->fail('Parsing exception: ' . $e->getMessage());
+        }
     }
 }

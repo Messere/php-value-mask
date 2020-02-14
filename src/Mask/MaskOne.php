@@ -4,7 +4,6 @@ namespace messere\phpValueMask\Mask;
 
 class MaskOne extends Mask
 {
-
     private $key;
 
     public function __construct(string $key)

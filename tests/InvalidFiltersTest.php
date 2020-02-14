@@ -8,30 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class InvalidFiltersTest extends TestCase
 {
-    private $parser;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->parser = new Parser();
-    }
-
     /**
      * @dataProvider invalidFilterProvider
-     * @param string $filter
      */
     public function testInvalidFilters(string $filter): void
     {
-        $error = '';
-        try {
-            $this->parser->parse($filter);
-        } catch (ParserException $e) {
-            $error = $e->getMessage();
-        }
-        $this->assertNotEmpty(
-            $error,
-            "Expected parsing error on invalid filter $filter, but none was thrown"
-        );
+        $parser = new Parser();
+        $this->expectException(ParserException::class);
+        $parser->parse($filter);
     }
 
     public function invalidFilterProvider(): array

@@ -27,9 +27,9 @@ abstract class Mask implements IMask
      */
     public function filter($value): array
     {
-        // normalize associative arrays to stdClasses so we don't have to deal
+        // normalize associative arrays to objects so we don't have to deal
         // with detecting if array value is in fact "list" or "object"
-        $valueNormalized = json_decode(json_encode($value));
+        $valueNormalized = json_decode(json_encode($value), false);
         return $this->applyToNormalized($valueNormalized);
     }
 

@@ -2,6 +2,9 @@
 
 namespace messere\phpValueMask\Parser;
 
+/**
+ * @internal
+ */
 class Input
 {
     private $value;
