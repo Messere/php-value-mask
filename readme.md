@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Google in their [Performance Tips](https://developers.google.com/discovery/v1/performance#partial) for
+Google in their [Performance Tips](https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response) for
 APIs, suggest to limit required bandwidth by filtering out unused fields in response. Their APIs 
 support additional URL parameter `fields` which asks API to include only specific fields in response.   
 
@@ -79,7 +79,7 @@ from `year` element, 'Workman', 'Gollancz' from `publisher`)
 
 As a result we expect the following output:
 
-```php
+```
 Array
 (
     [title] => Good Omens
@@ -166,7 +166,7 @@ Digit        = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ;
 
 Library is inspired by:
 
-* Google's [API performance tips](https://developers.google.com/discovery/v1/performance#partial).
+* Google's [API performance tips](https://cloud.google.com/storage/docs/json_api/v1/how-tos/performance#partial-response).
 * Similar JavaScript library: [nemtsov/json-mask](https://github.com/nemtsov/json-mask).
 
 ## License
