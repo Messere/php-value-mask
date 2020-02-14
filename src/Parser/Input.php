@@ -14,7 +14,7 @@ class Input
 
     public function getChar(): ?string
     {
-        $char = $this->value{$this->currentPosition} ?? null;
+        $char = $this->value[$this->currentPosition] ?? null;
         $this->currentPosition++;
         return $char;
     }
