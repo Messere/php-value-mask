@@ -1,7 +1,7 @@
 {
   "name": "messere/php-value-mask",
   "description": "extract subset of array / object values",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "library",
   "keywords": [
     "filter",
